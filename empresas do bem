@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Empresas do Bem - Conectando empresas a causas sociais</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Estilos Gerais */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* Cabeçalho */
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            color: #3498db;
+            margin-right: 10px;
+        }
+        
+        .logo span {
+            color: #3498db;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 20px;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: #3498db;
+        }
+        
+        /* Banner Principal */
+        .hero {
+            background: linear-gradient(rgba(44, 62, 80, 0.8), rgba(44, 62, 80, 0.8)), url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 100px 0;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 30px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: #3498db;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid #3498db;
+            margin-left: 10px;
+        }
+        
+        .btn-outline:hover {
+            background-color: #3498db;
+        }
+        
+        /* Seção de Empresas */
+        .section-title {
+            text-align: center;
+            margin: 50px 0 30px;
+            font-size: 2rem;
+            color: #2c3e50;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background-color: #3498db;
+            margin: 10px auto;
+            border-radius: 2px;
+        }
+        
+        .companies {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+        
+        .company-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        
+        .company-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .company-img {
+            height: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .company-info {
+            padding: 20px;
+        }
+        
+        .company-info h3 {
+            margin-bottom: 10px;
+            color: #2c3e50;
+            display: flex;
+            align-items: center;
+        }
+        
+        .company-info h3 i {
+            margin-right: 10px;
+            color: #3498db;
+        }
+        
+        .supported-ongs {
+            margin-top: 15px;
+            font-size: 0.9rem;
+        }
+        
+        .supported-ongs strong {
+            display: block;
+            margin-bottom: 8px;
+            color: #2c3e50;
+        }
+        
+        .ong-tag {
+            display: inline-block;
+            background-color: #e8f4fc;
+            color: #3498db;
+            padding: 5px 10px;
+            border-radius: 20px;
+            margin: 5px 5px 5px 0;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .ong-tag:hover {
+            background-color: #d1e9f9;
+        }
+        
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            overflow: auto;
+            padding: 20px;
+        }
+        
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 30px;
+            border-radius: 8px;
+            max-width: 700px;
+            position: relative;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 1.5rem;
+            color: #aaa;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        
+        .close-modal:hover {
+            color: #333;
+        }
+        
+        .modal-header {
+            margin-bottom: 20px;
+        }
+        
+        .modal-body {
+            margin-bottom: 20px;
+        }
+        
+        /* Seção de Doação */
+        .donation {
+            background-color: #e8f4fc;
+            padding: 50px 0;
+            text-align: center;
+        }
+        
+        .donation-form {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .form-group select, 
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        /* Seção Sobre */
+        .about {
+            padding: 50px 0;
+            background-color: white;
+        }
+        
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .about-content p {
+            margin-bottom: 20px;
+        }
+        
+        /* Rodapé */
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            padding: 40px 0 20px;
+            text-align: center;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links {
+            margin-bottom: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .footer-links a {
+            color: white;
+            margin: 0 10px;
+            text-decoration: none;
+        }
+        
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+        
+        .social-icons {
+            margin-bottom: 20px;
+        }
+        
+        .social-icons a {
+            color: white;
+            margin: 0 10px;
+            font-size: 1.2rem;
+        }
+        
+        .social-icons a:hover {
+            color: #3498db;
+        }
+        
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                margin-top: 15px;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            
+            nav ul li {
+                margin: 5px 10px;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .companies {
+                grid-template-columns: 1fr;
+            }
+            
+            .btn-outline {
+                margin-left: 0;
+                margin-top: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Cabeçalho -->
+    <header>
+        <div class="container header-content">
+            <div class="logo"><i class="fas fa-hand-holding-heart"></i>Empresas do <span>Bem</span></div>
+            <nav>
+                <ul>
+                    <li><a href="#inicio">Início</a></li>
+                    <li><a href="#empresas">Empresas</a></li>
+                    <li><a href="#doar">Doar</a></li>
+                    <li><a href="#sobre">Sobre</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Banner Principal -->
+    <section class="hero" id="inicio">
+        <div class="container">
+            <h1>Conectando empresas a causas sociais</h1>
+            <p>Descubra quais ONGs as empresas apoiam e faça a sua doação para transformar vidas.</p>
+            <a href="#doar" class="btn">Fazer uma doação</a>
+            <a href="#empresas" class="btn btn-outline">Conhecer empresas</a>
+        </div>
+    </section>
+
+    <!-- Seção de Empresas -->
+    <section id="empresas">
+        <div class="container">
+            <h2 class="section-title">Empresas Parceiras</h2>
+            <div class="companies">
+                <!-- Natura -->
+                <div class="company-card">
+                    <div class="company-img" style="background-color: #983B7E; background-image: linear-gradient(to bottom, #983B7E, #6D2A5B);">
+                        <i class="fas-leaf" style="font-size: 3rem;"></i>
+                    </div>
+                    <div class="company-info">
+                        <h3><i class="fas fa-spa"></i> Natura</h3>
+                        <p>Empresa de cosméticos comprometida com a sustentabilidade e comércio justo.</p>
+                        <div class="supported-ongs">
+                            <strong>Apoia:</strong>
+                            <div class="ong-tag" data-ong="amazonia-viva">Amazônia Viva</div>
+                            <div class="ong-tag" data-ong="instituto-natura">Instituto Natura</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Itaú Unibanco -->
+                <div class="company-card">
+                    <div class="company-img" style="background-color: #EC7000; background-image: linear-gradient(to bottom, #EC7000, #BF5C00);">
+                        <i class="fas-university" style="font-size: 3rem;"></i>
+                    </div>
+                    <div class="company-info">
+                        <h3><i class="fas fa-university"></i> Itaú Unibanco</h3>
+                        <p>Maior banco privado do Brasil com forte atuação em programas sociais e educacionais.</p>
+                        <div class="supported-ongs">
+                            <strong>Apoia:</strong>
+                            <div class="ong-tag" data-ong="unicef">UNICEF</div>
+                            <div class="ong-tag" data-ong="instituto-ayrton-senna">Instituto Ayrton Senna</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Magazine Luiza -->
+                <div class="company-card">
+                    <div class="company-img" style="background-color: #8200BE; background-image: linear-gradient(to bottom, #8200BE, #660097);">
+                        <i class="fas-shopping-cart" style="font-size: 3rem;"></i>
+                    </div>
+                    <div class="company-info">
+                        <h3><i class="fas fa-store"></i> Magazine Luiza</h3>
+                        <p>Varejista brasileira com programas de inclusão e diversidade.</p>
+                        <div class="supported-ongs">
+                            <strong>Apoia:</strong>
+                            <div class="ong-tag" data-ong="instituto-geledes">Instituto Geledés</div>
+                            <div class="ong-tag" data-ong="fundacao-abrinq">Fundação Abrinq</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bradesco -->
+                <div class="company-card">
+                    <div class="company-img" style="background-color: #CC092F; background-image: linear-gradient(to bottom, #CC092F, #A30725);">
+                        <i class="fas-landmark" style="font-size: 3rem;"></i>
+                    </div>
+                    <div class="company-info">
+                        <h3><i class="fas fa-landmark"></i> Bradesco</h3>
+                        <p>Um dos maiores bancos do Brasil com fundação dedicada a projetos sociais.</p>
+                        <div class="supported-ongs">
+                            <strong>Apoia:</strong>
+                            <div class="ong-tag" data-ong="fundacao-bradesco">Fundação Bradesco</div>
+                            <div class="ong-tag" data-ong="cancer">Instituto do Câncer</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Vale -->
+                <div class="company-card">
+                    <div class="company-img" style="background-color: #121212; background-image: linear-gradient(to bottom, #121212, #000000);">
+                        <i class="fas-mountain" style="font-size: 3rem;"></i>
+                    </div>
+                    <div class="company-info">
+                        <h3><i class="fas fa-mountain"></i> Vale</h3>
+                        <p>Empresa de mineração e metais com investimento em projetos comunitários.</p>
+                        <div class="supported-ongs">
+                            <strong>Apoia:</strong>
+                            <div class="ong-tag" data-ong="instituto-vale">Instituto Vale</div>
+                            <div class="ong-tag" data-ong="saude-crianca">Saúde Criança</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Petrobras -->
+                <div class="company-card">
+                    <div class="company-img" style="background-color: #1B608E; background-image: linear-gradient(to bottom, #1B608E, #154A70);">
+                        <i class="fas-gas-pump" style="font-size: 3rem;"></i>
+                    </div>
+                    <div class="company-info">
+                        <h3><i class="fas fa-gas-pump"></i> Petrobras</h3>
+                        <p>Empresa estatal de energia com programas socioambientais.</p>
+                        <div class="supported-ongs">
+                            <strong>Apoia:</strong>
+                            <div class="ong-tag" data-ong="projeto-tamar">Projeto Tamar</div>
+                            <div class="ong-tag" data-ong="ibama">IBAMA</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal para informações das ONGs -->
+    <div id="ong-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="modal-header">
+                <h2 id="modal-title">ONG</h2>
+            </div>
+            <div class="modal-body">
+                <p id="modal-description"></p>
+                <div id="modal-projects"></div>
+            </div>
+            <div class="modal-footer">
+                <a href="#doar" class="btn" id="modal-donate-btn">Doar para esta ONG</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Seção de Doação -->
+    <section id="doar" class="donation">
+        <div class="container">
+            <h2 class="section-title">Faça uma Doação</h2>
+            <div class="donation-form">
+                <form id="donation-form">
+                    <div class="form-group">
+                        <label for="empresa">Selecione a Empresa (opcional)</label>
+                        <select id="empresa">
+                            <option value="">-- Selecione uma empresa --</option>
+                            <option value="natura">Natura</option>
+                            <option value="itau">Itaú Unibanco</option>
+                            <option value="magalu">Magazine Luiza</option>
+                            <option value="bradesco">Bradesco</option>
+                            <option value="vale">Vale</option>
+                            <option value="petrobras">Petrobras</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="ong">Selecione a ONG</label>
+                        <select id="ong" required>
+                            <option value="">-- Selecione uma ONG --</option>
+                            <option value="amazonia-viva">Amazônia Viva</option>
+                            <option value="instituto-natura">Instituto Natura</option>
+                            <option value="unicef">UNICEF</option>
+                            <option value="instituto-ayrton-senna">Instituto Ayrton Senna</option>
+                            <option value="instituto-geledes">Instituto Geledés</option>
+                            <option value="fundacao-abrinq">Fundação Abrinq</option>
+                            <option value="fundacao-bradesco">Fundação Bradesco</option>
+                            <option value="cancer">Instituto do Câncer</option>
+                            <option value="instituto-vale">Instituto Vale</option>
+                            <option value="saude-crianca">Saúde Criança</option>
+                            <option value="projeto-tamar">Projeto Tamar</option>
+                            <option value="ibama">IBAMA</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="valor">Valor da Doação (R$)</label>
+                        <input type="number" id="valor" min="10" step="5" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="nome">Seu Nome Completo</label>
+                        <input type="text" id="nome" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Seu E-mail</label>
+                        <input type="email" id="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="mensagem">Mensagem (opcional)</label>
+                        <textarea id="mensagem" placeholder="Deixe uma mensagem de apoio"></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn">Doar Agora</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção Sobre -->
+    <section id="sobre" class="about">
+        <div class="container">
+            <h2 class="section-title">Sobre o Projeto</h2>
+            <div class="about-content">
+                <p>O "Empresas do Bem" é um projeto escolar que visa promover a transparência sobre as ações sociais das empresas e facilitar doações para organizações não governamentais.</p>
+                <p>Nosso objetivo é conectar pessoas a causas sociais através das empresas que já apoiam essas iniciativas, criando um ciclo de doações e transformação social.</p>
+                <p>Este projeto é desenvolvido por alunos como parte de uma iniciativa acadêmica para demonstrar na prática como a tecnologia pode ser usada para o bem social.</p>
+                <p>As informações apresentadas são baseadas em dados públicos sobre as iniciativas sociais das empresas.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Rodapé -->
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-logo">Empresas do Bem</div>
+            <div class="footer-links">
+                <a href="#inicio">Início</a>
+                <a href="#empresas">Empresas</a>
+                <a href="#doar">Doar</a>
+                <a href="#sobre">Sobre</a>
+                <a href="#">Política de Privacidade</a>
+                <a href="#">Termos de Uso</a>
+            </div>
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+            <p>&copy; 2023 Empresas do Bem - Projeto Escolar. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Dados das ONGs
+        const ongs = {
+            "amazonia-viva": {
+                title: "Amazônia Viva",
+                description: "Organização não-governamental dedicada à preservação da Amazônia e ao desenvolvimento sustentável das comunidades locais. Atua desde 1995 na região.",
+                projects: "<h3>Projetos em Andamento:</h3><ul><li>Reflorestamento de áreas degradadas</li><li>Capacitação de comunidades em agrofloresta</li><li>Combate ao desmatamento ilegal</li></ul>"
+            },
+            "instituto-natura": {
+                title: "Instituto Natura",
+                description: "Criado pela Natura em 2010, o instituto foca em melhorar a educação pública no Brasil através de formações de educadores e gestores escolares.",
+                projects: "<h3>Projetos em Andamento:</h3><ul><li>Programa Comunidade de Aprendizagem</li><li>Escolas que Inovam</li><li>Compromisso com a Educação</li></ul>"
+            },
+            "unicef": {
+                title: "UNICEF",
+                description: "Fundo das Nações Unidas para a Infância que atua no Brasil há 70 anos, promovendo os direitos e o bem-estar de crianças e adolescentes.",
+                projects: "<h3>Projetos em Andamento:</h3><ul><li>Busca Ativa Escolar</li><li>Sel UNICEF Município Aprovado</li><li>Programa de Educação para a Convivência com o Semiárido</li></ul>"
+            },
+            "instituto-ayrton-senna": {
+                title: "Instituto Ayrton Senna",
+                description: "Organização sem fins lucrativos que há mais de 25 anos desenvolve soluções para promover educação pública de qualidade em todo o Brasil.",
+                projects: "<h3>Projetos em Andamento:</h3><ul><li>Gestão da Política de Alfabetização</li><li>Programa Solução Educação</li><li>Formação de Gestores Educacionais</li></ul>"
+            },
+            "instituto-geledes": {
+                title: "Instituto Geledés",
+                description: "Organização da sociedade civil que atua há 30 anos na defesa de mulheres e negros por meio de ações de combate ao racismo e sexismo.",
+                projects: "<h3>Projetos em Andamento:</h3><ul><li>Programa de Saúde da População Negra</li><li>Observatório da Política Nacional de Saúde Integral da População Negra</li><li>Plataforma de Denúncia de Violência Racial</li></ul>"
+            },
+            "fundacao-abrinq": {
+                title: "Fundação Abrinq",
+                description: "Organização sem fins lucrativos que há 30 anos luta pela defesa dos direitos da criança e do adolescente no Brasil.",
+                projects: "<h3>Projetos em Andamento:</h3><ul><li>Programa Prefeito Amigo da Criança</li><li>Programa Adotei um Aluno</li><li>Programa Empresa Amiga da Criança</li></ul>"
+            },
+            // Adicione informações para as outras ONGs...
+        };
+
+        // Script para o modal de informações das ONGs
+        document.querySelectorAll('.ong-tag').forEach(tag => {
+            tag.addEventListener('click', () => {
+                const ongId = tag.getAttribute('data-ong');
+                const ong = ongs[ongId];
+                
+                if (ong) {
+                    document.getElementById('modal-title').textContent = ong.title;
+                    document.getElementById('modal-description').textContent = ong.description;
+                    document.getElementById('modal-projects').innerHTML = ong.projects;
+                    document.getElementById('modal-donate-btn').setAttribute('data-ong', ongId);
+                    
+                    document.getElementById('ong-modal').style.display = 'block';
+                }
+            });
+        });
+
+        // Fechar o modal
+        document.querySelector('.close-modal').addEventListener('click', () => {
+            document.getElementById('ong-modal').style.display = 'none';
+        });
+
+        // Fechar o modal ao clicar fora dele
+        window.addEventListener('click', (event) => {
+            if (event.target == document.getElementById('ong-modal')) {
+                document.getElementById('ong-modal').style.display = 'none';
+            }
+        });
+
+        // Botão de doação no modal
+        document.getElementById('modal-donate-btn').addEventListener('click', () => {
+            document.getElementById('ong-modal').style.display = 'none';
+            const ongId = document.getElementById('modal-donate-btn').getAttribute('data-ong');
+            document.getElementById('ong').value = ongId;
+        });
+
+        // Script para o formulário de doação
+        document.getElementById('donation-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Coletar dados do formulário
+            const empresa = document.getElementById('empresa').value;
+            const ong = document.getElementById('ong').value;
+            const valor = document.getElementById('valor').value;
+            const nome = document.getElementById('nome').value;
+            const email = document.getElementById('email').value;
+            
+            // Mensagem de sucesso
+            alert(`Obrigado, ${nome}! Sua doação de R$ ${valor} foi processada com sucesso para a ONG selecionada. Um e-mail de confirmação foi enviado para ${email}.`);
+            
+            // Limpar formulário
+            document.getElementById('donation-form').reset();
+        });
+        
+        // Script para filtrar ONGs com base na empresa selecionada
+        document.getElementById('empresa').addEventListener('change', function() {
+            const empresa = this.value;
+            const ongSelect = document.getElementById('ong');
+            
+            // Reset das opções
+            ongSelect.innerHTML = '<option value="">-- Selecione uma ONG --</option>';
+            
+            // Adicionar ONGs com base na empresa selecionada
+            if (empresa === 'natura') {
+                addOption(ongSelect, 'amazonia-viva', 'Amazônia Viva');
+                addOption(ongSelect, 'instituto-natura', 'Instituto Natura');
+            } else if (empresa === 'itau') {
+                addOption(ongSelect, 'unicef', 'UNICEF');
+                addOption(ongSelect, 'instituto-ayrton-senna', 'Instituto Ayrton Senna');
+            } else if (empresa === 'magalu') {
+                addOption(ongSelect, 'instituto-geledes', 'Instituto Geledés');
+                addOption(ongSelect, 'fundacao-abrinq', 'Fundação Abrinq');
+            } else if (empresa === 'bradesco') {
+                addOption(ongSelect, 'fundacao-bradesco', 'Fundação Bradesco');
+                addOption(ongSelect, 'cancer', 'Instituto do Câncer');
+            } else if (empresa === 'vale') {
+                addOption(ongSelect, 'instituto-vale', 'Instituto Vale');
+                addOption(ongSelect, 'saude-crianca', 'Saúde Criança');
+            } else if (empresa === 'petrobras') {
+                addOption(ongSelect, 'projeto-tamar', 'Projeto Tamar');
+                addOption(ongSelect, 'ibama', 'IBAMA');
+            } else {
+                // Se nenhuma empresa específica for selecionada, mostrar todas as ONGs
+                addOption(ongSelect, 'amazonia-viva', 'Amazônia Viva');
+                addOption(ongSelect, 'instituto-natura', 'Instituto Natura');
+                addOption(ongSelect, 'unicef', 'UNICEF');
+                addOption(ongSelect, 'instituto-ayrton-senna', 'Instituto Ayrton Senna');
+                addOption(ongSelect, 'instituto-geledes', 'Instituto Geledés');
+                addOption(ongSelect, 'fundacao-abrinq', 'Fundação Abrinq');
+                addOption(ongSelect, 'fundacao-bradesco', 'Fundação Bradesco');
+                addOption(ongSelect, 'cancer', 'Instituto do Câncer');
+                addOption(ongSelect, 'instituto-vale', 'Instituto Vale');
+                addOption(ongSelect, 'saude-crianca', 'Saúde Criança');
+                addOption(ongSelect, 'projeto-tamar', 'Projeto Tamar');
+                addOption(ongSelect, 'ibama', 'IBAMA');
+            }
+        });
+        
+        function addOption(select, value, text) {
+            const option = document.createElement('option');
+            option.value = value;
+            option.textContent = text;
+            select.appendChild(option);
+        }
+    </script>
+</body>
+</html>
